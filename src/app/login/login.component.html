@@ -1,0 +1,19 @@
+<form class="form" (ngSubmit)="userLogin()">
+    <p class="form-title">Sign in to your account</p>
+     <div class="input-container">
+       <input type="text" [(ngModel)]="user.mssv" placeholder="Enter Student ID" id="mssv" name="mssv">
+       <span>
+       </span>
+   </div>
+   <div class="input-container">
+       <input type="password" [(ngModel)]="user.password" placeholder="Enter password" id="password" name="password">
+     </div>
+      <button type="submit" class="submit">
+     Sign in
+   </button>
+
+   <p class="signup-link">
+     No account?
+     <a href="">Sign up</a>
+   </p>
+</form>
