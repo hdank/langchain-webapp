@@ -10,4 +10,10 @@ import { Component } from '@angular/core';
 export class UserComponent {
   mssv!: string;
   password!: string;
+  email!: string;
+  fname!: string;
+  lname!: string;
+  gender!: string;
+  phoneNumber!: string;
+  birth!: string;
 }

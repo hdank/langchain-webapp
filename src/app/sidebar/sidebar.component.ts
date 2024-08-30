@@ -17,6 +17,9 @@ export class SidebarComponent {
   }
 
   logout(){
+    console.log("Log out function in side bar clicked");
+    window.localStorage.clear();
+    sessionStorage.clear();
     this.authService.Logout();
   }
 

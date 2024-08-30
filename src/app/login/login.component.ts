@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserComponent } from '../user/user.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -16,14 +16,28 @@ import { AuthserviceService } from '../authservice.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   
   user: UserComponent = new UserComponent();
 
   private baseUrl = "http://localhost:8080/user";
 
   constructor(private authService: AuthserviceService, private router: Router) {}
-
+  ngOnInit(): void {
+    // If the token exists => auto login
+    const token = localStorage.getItem('authToken');
+  if(token){
+    const stringToken = String(token);
+    this.authService.autoLogin(stringToken).subscribe(user=>{
+      if(user){
+        this.router.navigate(['/home']);
+      }
+    })
+  }
+  }
+  navigateToSignUp(){
+    this.router.navigate(['/sign-up']);
+  }
   userLogin() {
     this.authService.userLogin(this.user).subscribe(token=>{
       if(token){

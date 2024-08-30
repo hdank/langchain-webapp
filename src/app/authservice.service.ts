@@ -17,13 +17,6 @@ export class AuthserviceService {
   user: UserComponent = new UserComponent();
   userLogin(user: UserComponent) {
     return this.loginUserService.loginUser(user).pipe(catchError(()=> of(null)));
-    // return this.http.post<string>(`${this.baseUrl}/login`,{user})
-    //         .pipe(catchError(()=> of(null)));
-    // this.loginUserService.loginUser(user).subscribe(data=>{
-    //   this.isAuthenticated = true;
-    //   alert("Login Successfully");
-    //   this.router.navigate(['/home']);
-    // }, error=>alert("Please enter correct username and password"))
   }
 
   autoLogin(token:string): Observable<any>{
@@ -34,10 +27,19 @@ export class AuthserviceService {
   }
 
   Logout(){
-    this.isAuthenticated = false;
-    return this.http.get(`${this.baseUrl}/logout`).subscribe(() => 
-      this.router.navigate(['/login']) // Handle successful logout (redirect to login page)
-    )
+    const stringToken = localStorage.getItem('authToken');
+    console.log("Log out function clicked");
+    if (stringToken) {
+        this.http.get(`${this.baseUrl}/logout?token=${stringToken}`).subscribe(() => {
+            localStorage.clear();  // Clear local storage after server-side logout
+            this.router.navigate(['/login']);  // Redirect to login page
+        }, error => {
+            console.error("Logout failed", error);  // Handle any logout errors
+            this.router.navigate(['/login']);  // Still redirect to login page
+        });
+    } else {
+        this.router.navigate(['/login']);  // If no token, simply redirect to login
+    }
   }
   getAuthStatus(): boolean {
     return this.isAuthenticated;
