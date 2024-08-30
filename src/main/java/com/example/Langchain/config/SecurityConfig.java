@@ -26,7 +26,7 @@
 //    @Bean
 //    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 //        http.csrf(csrf -> csrf.disable()).authorizeHttpRequests((auth) -> auth
-//                .requestMatchers("/user/login","/user/auto-login","/logout","/user/sign-up").permitAll() //Allow access to login
+//                .requestMatchers("/user/login","/user/auto-login","/logout","/user/sign-up","/user/general").permitAll() //Allow access to login
 //                .requestMatchers("/user/home").authenticated()  //Secure the home page
 //                .anyRequest().authenticated() //Secure all other endpoints
 //
