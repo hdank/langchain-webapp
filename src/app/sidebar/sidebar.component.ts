@@ -12,7 +12,7 @@ import { AuthserviceService } from '../authservice.service';
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
-  constructor(private authService: AuthserviceService){
+  constructor(private authService: AuthserviceService, private router: Router){
 
   }
 
@@ -22,5 +22,7 @@ export class SidebarComponent {
     sessionStorage.clear();
     this.authService.Logout();
   }
-
+  navigateToGeneralPage(){
+    this.router.navigate(['/general']);
+  }
 }

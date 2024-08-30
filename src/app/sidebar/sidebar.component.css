@@ -7,6 +7,7 @@
     top: 0;
     left: 0;
     padding-top: 20px;
+    width: fit-content;
   }
   button{
     background-color: #333;
@@ -27,9 +28,13 @@
     color: white;
     text-decoration: none;
     display: block;
+    cursor: pointer;
   }
   
   .sidebar ul li a:hover {
     background-color: #444;
   }
-  
+
+  .sidebar ul li:hover{
+    background-color: #444;
+  }
