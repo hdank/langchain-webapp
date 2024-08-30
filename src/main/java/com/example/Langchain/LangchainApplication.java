@@ -19,6 +19,7 @@ public class LangchainApplication {
 		String rawPassword = "123";
 		String encodedPassword = encoder.encode(rawPassword);
 		System.out.println(encodedPassword);
+
 	}
 
 }

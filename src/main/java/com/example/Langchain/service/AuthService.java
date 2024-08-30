@@ -6,6 +6,8 @@ import com.example.Langchain.repository.SessionRepository;
 import com.example.Langchain.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -23,11 +25,13 @@ public class AuthService {
     private SessionRepository ssrepo;
 
     public String login(String mssv, String password){
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
         Optional<User> userOptional = repo.findByMssv(mssv);
         if(userOptional.isPresent()) {
             User user = userOptional.get();
             System.out.println("User found: " + user.getMssv());
-            if(user.getPassword().equals(password)) {
+            String encodedPassword = encoder.encode(password);
+            if(encoder.matches(password, encodedPassword)) {
                 String token = UUID.randomUUID().toString();
                 user.setToken(token);
                 repo.save(user);
@@ -44,7 +48,7 @@ public class AuthService {
         // Retrieve user based on the session token
         Optional<User> userOptional = repo.findByToken(token);
         System.out.println("repo: "+repo); //Debug print
-        if (userOptional.isPresent()) {  // Ensure the session is valid
+        if (userOptional.isPresent()) {
             System.out.println("password from user: "+userOptional.get().getMssv());// Debug print
 
             return userOptional.get().getMssv();

@@ -16,6 +16,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,7 +58,11 @@ public class UserController {
             user.setEmail(userData.getEmail());
             user.setFname(userData.getFname());
             user.setLname(userData.getLname());
-            user.setPassword(userData.getPassword());
+
+            //Encode user password
+            PasswordEncoder encoder = new BCryptPasswordEncoder();
+            String encodedPassword = encoder.encode(userData.getPassword());
+            user.setPassword(encodedPassword);
             user.setPhoneNumber(userData.getPhoneNumber());
             user.setGender(userData.getGender());
             user.setBirth(userData.getBirth());
