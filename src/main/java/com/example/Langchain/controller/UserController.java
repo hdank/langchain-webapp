@@ -1,6 +1,7 @@
 package com.example.Langchain.controller;
 
 import com.example.Langchain.entity.User;
+import com.example.Langchain.repository.SessionRepository;
 import com.example.Langchain.repository.UserRepository;
 import com.example.Langchain.service.AuthResponse;
 import com.example.Langchain.service.AuthService;
@@ -31,6 +32,8 @@ public class UserController {
     @Autowired
     private AuthService authService;
 
+    @Autowired
+    private UserRepository userRepository;
 
 //    private final AuthenticationManager authenticationManager;
 
@@ -44,6 +47,28 @@ public class UserController {
         System.out.println("Generated token: " + token); // Debugging output
         return ResponseEntity.ok(new AuthResponse(token, userData));
 
+    }
+    @PostMapping("/sign-up")
+    public ResponseEntity<?> signup(@RequestBody User userData){
+        if(userRepository.findByMssv(userData.getMssv()).isEmpty()){
+            User user = new User();
+            user.setMssv(userData.getMssv());
+            user.setEmail(userData.getEmail());
+            user.setFname(userData.getFname());
+            user.setLname(userData.getLname());
+            user.setPassword(userData.getPassword());
+            user.setPhoneNumber(userData.getPhoneNumber());
+            user.setGender(userData.getGender());
+            user.setBirth(userData.getBirth());
+            String token = UUID.randomUUID().toString();
+            user.setToken(token);
+            userRepository.save(user);
+
+            return ResponseEntity.ok(new AuthResponse(token, userData));
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Already have a user with this mssv");
+        }
     }
     @GetMapping("/auto-login")
     public ResponseEntity<?> autologin(@RequestParam String token){
@@ -60,11 +85,17 @@ public class UserController {
         return ResponseEntity.ok("home");
     }
     @GetMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null) {
-            new SecurityContextLogoutHandler().logout(request, response, auth);
+    public ResponseEntity<?> logout(@RequestParam String token) {
+        Optional<User> userOptional = userRepository.findByToken(token);
+        if(userOptional.isPresent()){
+            User user = userOptional.get();
+            user.setToken(null);
+            System.out.println("User: "+user.getMssv()+ ", token: "+user.getToken());
+            userRepository.save(user);
+            return ResponseEntity.ok("Logged out successfully");
         }
-        return ResponseEntity.ok("Logged out successfully");
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid token");
     }
+
 }

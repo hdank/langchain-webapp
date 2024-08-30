@@ -43,7 +43,7 @@ public class AuthService {
     public String getUserBySessionToken(String token){
         // Retrieve user based on the session token
         Optional<User> userOptional = repo.findByToken(token);
-        System.out.println("repo: "+repo);
+        System.out.println("repo: "+repo); //Debug print
         if (userOptional.isPresent()) {  // Ensure the session is valid
             System.out.println("password from user: "+userOptional.get().getMssv());// Debug print
 
