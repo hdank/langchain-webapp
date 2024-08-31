@@ -3,22 +3,23 @@
 
     <div class="card-container">
       <div class="card-header">
-        <div class="img-avatar"></div>
+        <div class="img-avatar"><img src="/chatbot-avatar.jpg" class="img-avatar"></div>
         <div class="text-chat">ChatBot</div>
+        <div class="online"></div>
       </div>
       <div class="card-body">
-        <div class="messages-container">
-            <div class="message-box left">
-                <p>Hello, How are you?</p>
+        <div id="messages-container" class="messages-container">
+            <div id="bot-message" class="message-box left">
+                <p>Hello, i am  a ChatBot </p>
             </div>
-            <div class="message-box right">
+            <!-- <div id="user-message" class="message-box right">
                 <p>I'm good, thanks for asking! How about you?</p>
-            </div>
+            </div> -->
         </div>
         <div class="message-input">
           <form>
-            <textarea placeholder="Type your message here" class="message-send"></textarea>
-            <button type="submit" class="button-send">Send</button>
+            <textarea id="textarea" placeholder="Nhập câu hỏi của bạn" class="message-send"></textarea>
+            <button (click)="sendMessage()" id="button-send" type="submit" class="button-send">Gửi</button>
           </form>
         </div>
       </div>
