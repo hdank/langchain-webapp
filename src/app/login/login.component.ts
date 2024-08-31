@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     const stringToken = String(token);
     this.authService.autoLogin(stringToken).subscribe(user=>{
       if(user){
-        this.router.navigate(['/home']);
+        this.router.navigate(['/chat']);
       }
     })
   }
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
         const tokenString = String(token);
         console.log(tokenString);
         localStorage.setItem('authToken',tokenString);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/chat']);
       }
       else{
         alert("Please enter mssv and password correctly");

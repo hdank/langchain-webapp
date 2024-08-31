@@ -26,6 +26,6 @@ export class SidebarComponent {
     this.router.navigate(['/general']);
   }
   navigateToChatPage(){
-    this.router.navigate(['/home']);
+    this.router.navigate(['/chat']);
   }
 }

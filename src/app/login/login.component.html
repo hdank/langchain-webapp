@@ -1,5 +1,5 @@
 <form  class="form" (ngSubmit)="userLogin()">
-    <p class="form-title">Sign in to your account</p>
+    <p class="form-title">Đăng nhập vào tài khoản</p>
      <div class="input-container">
        <input type="text" [(ngModel)]="user.mssv" placeholder="Enter Student ID" id="mssv" name="mssv">
        <span>
@@ -9,11 +9,11 @@
        <input type="password" [(ngModel)]="user.password" placeholder="Enter password" id="password" name="password">
      </div>
       <button type="submit" class="submit">
-     Sign in
+     Đăng nhập
    </button>
 
    <p class="signup-link">
-     No account?
-     <button (click)="navigateToSignUp()">Sign up</button>
+     Không có tài khoản?
+     <button (click)="navigateToSignUp()">Đăng ký</button>
    </p>
 </form>

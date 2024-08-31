@@ -19,7 +19,7 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
     var token = localStorage.getItem('authToken');
     if(token!= null){
-      console.log("Home page");
+      console.log("Chat page");
     }
     else{
       this.router.navigate(['/login']);
