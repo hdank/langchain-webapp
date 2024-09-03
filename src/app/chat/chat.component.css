@@ -13,6 +13,8 @@
   margin-right: auto;
 }
 
+
+
 .card-header {
   display: flex;
   align-items: center;
@@ -48,14 +50,31 @@
   margin-bottom: 5px;
   border-radius: 10px;
 }
-
+/* Typewriter animation */
 .message-box.left {
   background-color: #f1f1f1;
   color: black;
   font-size: 13px;
   left: 0;
   max-width: fit-content;
+ 
+            
 }
+.response{
+  white-space: nowrap;
+  overflow: hidden;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  animation: typing 2s ;
+             cursor: .4s step-end infinite alternate;
+} 
+
+/* Typing effect */
+@keyframes typing{
+  0%{width: 0;}
+  50%{width: 100%;}
+} 
+
 
 .message-box.right {
   background-color: #333;

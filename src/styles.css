@@ -1,9 +1,9 @@
 body{
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
 }
 .dark-mode{
-    background-color: rgb(56, 54, 54);
+    background-color: black;
     color: white;
 }
 .plane-switch {
